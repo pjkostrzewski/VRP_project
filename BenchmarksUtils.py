@@ -35,8 +35,10 @@ class BenchmarkCaseParser(BenchmarkBase):
         points = []
         coords = self.get_coords()
         demands = self.get_demands()
+        count = 1
         for xy, demand in zip(coords, demands):
-            points.append(Point(xy=xy, demand=demand))
+            points.append(Point(id_number=count, xy=xy, demand=demand))
+            count += 1
         return points
     
 class BenchmarkSolutionParser(BenchmarkBase):
