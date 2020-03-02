@@ -15,12 +15,16 @@ class MatplotlibPlotter(object):
         plt.scatter(*depot, c=self.depot_color, s=50)
         plt.scatter(x_values[1:], y_values[1:])   
     
-    def draw_routes(self, routes, points):
+    def draw_routes(self, points, routes):
         for route in routes:
             x_route = [points[point-1].x for point in route]
             y_route = [points[point-1].y for point in route]
             plt.plot(x_route, y_route)
     
+    def draw(self, points, routes):
+        self.draw_points(points)
+        self.draw_routes(points, routes)
+        
     @staticmethod
     def show():
         plt.show()

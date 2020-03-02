@@ -10,7 +10,7 @@ class BenchmarkBase(object):
     
     @staticmethod
     def str_to_ints_in_tuple(arg: str) -> tuple:
-        return tuple(map(int, arg.split(" ")))
+        return tuple(map(int, arg.strip().split(" ")))
     
 class BenchmarkCaseParser(BenchmarkBase):
     
@@ -43,7 +43,7 @@ class BenchmarkSolutionParser(BenchmarkBase):
         return float(re.findall(r'Cost: (.*)', self.solution_data)[0])
     
     def get_routes(self) -> list:
-        routes = re.findall(r'(1 .* 1)', self.solution_data)
+        routes = re.findall(r'(1 .* 1 )', self.solution_data)
         return [self.str_to_ints_in_tuple(route) for route in routes]
         
 
