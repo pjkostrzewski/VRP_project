@@ -1,3 +1,6 @@
+import math
+
+
 class Point(object):
     
     number_of_points = 0
@@ -24,3 +27,6 @@ class Point(object):
     @property
     def y(self):
         return self._y
+
+    def get_distance_to(self, point) -> float:
+        return math.sqrt((self.x - point.x)**2 + (self.y - point.y)**2)
