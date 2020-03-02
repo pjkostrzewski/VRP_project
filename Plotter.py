@@ -16,11 +16,9 @@ class MatplotlibPlotter(object):
         plt.scatter(x_values[1:], y_values[1:])   
     
     def draw_routes(self, routes, points):
-        depot = points[0].x, points[0].y
         for route in routes:
-            print(route)
-            x_route = [depot[0]] + [points[point].x for point in route] + [depot[0]]
-            y_route = [depot[1]] + [points[point].y for point in route] + [depot[1]]
+            x_route = [points[point-1].x for point in route]
+            y_route = [points[point-1].y for point in route]
             plt.plot(x_route, y_route)
     
     @staticmethod

@@ -20,25 +20,18 @@ class BenchmarkCaseParser(BenchmarkBase):
     def get_name(self) -> str:
         return re.findall(r'NAME : (.*)', self.vrp_data)[0]
         
-    def get_capacity(self) -> int:
-        return int(re.findall(r'CAPACITY : (.*)', self.vrp_data)[0])
+    def get_dimension(self) -> int:
+        return int(re.findall(r'DIMENSION : (.*)', self.vrp_data)[0])
     
     def get_coords(self) -> list:
-        coords = re.findall(r' \d{1,3} (\d{1,3} \d{1,3})\n', self.vrp_data)
+        coords = re.findall(r'\d{1,3} (\d{1,3} \d{1,3})\n', self.vrp_data)
         return [self.str_to_ints_in_tuple(coord) for coord in coords]
-    
-    def get_demands(self) -> list:
-        demands = re.findall(r'\n\d{1,3} (\d{1,3})', self.vrp_data)
-        return list(map(int, demands))
     
     def get_points(self) -> list:
         points = []
         coords = self.get_coords()
-        demands = self.get_demands()
-        count = 1
-        for xy, demand in zip(coords, demands):
-            points.append(Point(id_number=count, xy=xy, demand=demand))
-            count += 1
+        for id_number, coord in enumerate(coords):
+            points.append(Point(id_number=id_number+1, xy=coord))
         return points
     
 class BenchmarkSolutionParser(BenchmarkBase):
@@ -46,11 +39,11 @@ class BenchmarkSolutionParser(BenchmarkBase):
     def __init__(self, solution_path):
         self.solution_data = self.get_vrp_data(solution_path)
 
-    def get_cost(self) -> int:
-        return int(re.findall(r'cost (.*)', self.solution_data)[0])
+    def get_cost(self) -> float:
+        return float(re.findall(r'Cost: (.*)', self.solution_data)[0])
     
     def get_routes(self) -> list:
-        routes = re.findall(r'Route #\d{1,3}: (.*)', self.solution_data)
+        routes = re.findall(r'(1 .* 1)', self.solution_data)
         return [self.str_to_ints_in_tuple(route) for route in routes]
         
 
