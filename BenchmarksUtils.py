@@ -40,7 +40,8 @@ class BenchmarkSolutionParser(BenchmarkBase):
         self.solution_data = self.get_vrp_data(solution_path)
 
     def get_cost(self) -> float:
-        return float(re.findall(r'Cost: (.*)', self.solution_data)[0])
+        costs = re.findall(r'Cost: (.*)', self.solution_data)
+        return sum(list(map(float, costs)))
     
     def get_routes(self) -> list:
         routes = re.findall(r'(1 .* 1 )', self.solution_data)
