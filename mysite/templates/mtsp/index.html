@@ -1,0 +1,10 @@
+{% extends "mtsp/base.html" %}
+
+
+{% block content %}
+    <div class="coords">
+        {% for coord in coords %}
+            <h1>{{ coord.x}}, {{coord.y}}</h1>
+        {% endfor %}
+    </div>
+{% endblock %}
