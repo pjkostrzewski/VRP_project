@@ -13,7 +13,7 @@ print(first.get_population())
 first.crossover_population()
 first.mutate_population()
 print(first.get_population())
-second = ChildsPopulation(first.get_population())
+
 # plotter = MatplotlibPlotter()
 # plotter.draw(points, routes)
 # plotter.show()
