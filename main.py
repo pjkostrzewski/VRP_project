@@ -15,7 +15,9 @@ routes = benchmark.get_routes()
 population = None
 running = True
 best = None
-while running and Population.number_of_populations < 100:
+same = 0
+while running and same < 500:
+    plotter.ion()
     if population is None:
         population = FirstPopulation(points)
     else:
@@ -24,19 +26,22 @@ while running and Population.number_of_populations < 100:
     population.crossover_population()
     population.mutate_population()
     fittest_route = population.get_fittest_route()
-    print(Population.number_of_populations,fittest_route.distance)
+    print(Population.number_of_populations, fittest_route.distance)
     if best is None:
         best = fittest_route
     elif fittest_route.distance < best.distance:
         best = fittest_route
+        plotter.clear()
+        plotter.draw(points, best.get_full_route())
+        same = 0
+    else:
+        same += 1
 
-    plotter.ion()
-    plotter.clear()
-    plotter.draw(points, best.get_full_route())
     print(best.distance)
     plotter.show()
     plotter.pause()
-    
+print(best.distance)
+plotter.show()
     
 
 

@@ -1,55 +1,68 @@
 import random
-from TSP import TSP
+from GA import GeneticAlgorithm
 from Route import Route
 
 class Population(object):
     
-    population_size = 30
+    population_size = 100
     number_of_populations = 0
-    tsp = TSP()
     
     def __init__(self):  
         self.population = list()
-        # self.wages = self.get_wages()
         Population.number_of_populations += 1
         
     def get_population(self):
         return self.population
-            
-    def _clear_population(self):
+    
+    def get_fittest_route(self):
+        return sorted(self.population, key=lambda x: x.distance)[0]
+         
+    def clear_population(self):
         self.population.clear()
+    
+    def sort(self):
+        self.population.sort(key=lambda x: x.distance)
+        
+    def get_random_route(self):
+        self.sort()
+        sum_of_distances = sum([x.distance for x in self.population])
+        return random.choices(self.population, [x.fitness/sum_of_distances for x in self.population])[0]
+    
+    def get_route_via_tournament(self, tournament_size=10):
+        tournament = []
+        for _ in range(tournament_size):
+            route = random.choice(self.population)
+            tournament.append(route)
+        return sorted(tournament, key=lambda x: x.distance)[0]
         
     def crossover_population(self):
         crossover_result = []
         assert self.population, "Population is empty."
         while len(crossover_result) < self.population_size:
-            
-            paired_routes = [(self.population[i], self.population[i+1]) for i in range(0, len(self.population)-1, 2)]
-            for route_1, route_2 in paired_routes:
-                print(route_1.get_distance())
-                ### instead use:    random.choice()
-                
-                crossed_1, crossed_2 = self.tsp.crossover(route_1, route_2)
-                if crossed_1.uniques_only() and crossed_1 not in crossover_result:
-                    crossover_result.append(crossed_1)
-                if crossed_1.uniques_only() and crossed_2 not in crossover_result:
-                    crossover_result.append(crossed_2)
+            route_1 = self.get_route_via_tournament()
+            route_2 = self.get_route_via_tournament()
+            crossed_1, crossed_2 = GeneticAlgorithm.crossover(route_1, route_2)
+            if crossed_1.uniques_only():
+                crossover_result.append(crossed_1)
+            if crossed_1.uniques_only():
+                crossover_result.append(crossed_2)
         self.population = crossover_result[:self.population_size]
         
     def mutate_population(self):
         for route in self.population:
-            self.tsp.mutation(route) 
+            GeneticAlgorithm.mutation(route) 
 
 
 class FirstPopulation(Population):
     
     def __init__(self, points):
         super().__init__()
-        self.points = points
+        self.depot = points[0]
+        self.points = points[1:]
         self.create_random_population()
         
     def create_random_population(self):
-        self._clear_population()
+        self.clear_population()
         for _ in range(self.population_size):
             permutation = random.sample(self.points, len(self.points))
             self.population.append(Route(permutation))
@@ -59,8 +72,4 @@ class ChildsPopulation(Population):
     
         def __init__(self, previous_population):
             super().__init__()
-            self.previous_population = previous_population
-        
-        def get_previous_population(self):
-            return self.previous_population
-        
+            self.population = previous_population

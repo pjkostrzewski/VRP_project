@@ -6,7 +6,7 @@ class MatplotlibPlotter(object):
     
     
     def __init__(self):
-        pass
+        self.fig = plt.figure()
     
     def draw_points(self, points):
         x_values = [point.x for point in points]
@@ -15,11 +15,10 @@ class MatplotlibPlotter(object):
         plt.scatter(*depot, c=self.depot_color, s=50)
         plt.scatter(x_values[1:], y_values[1:])   
     
-    def draw_routes(self, points, routes):
-        for route in routes:
-            x_route = [points[point-1].x for point in route]
-            y_route = [points[point-1].y for point in route]
-            plt.plot(x_route, y_route)
+    def draw_routes(self, points, route):
+        x_route = [point.x for point in route]
+        y_route = [point.y for point in route]
+        plt.plot(x_route, y_route)
     
     def draw(self, points, routes):
         self.draw_points(points)
@@ -28,3 +27,14 @@ class MatplotlibPlotter(object):
     @staticmethod
     def show():
         plt.show()
+    
+    @staticmethod
+    def ion():
+        plt.ion()
+    
+    @staticmethod
+    def pause():
+        plt.pause(0.01)
+        
+    def clear(self):
+        self.fig.clear()

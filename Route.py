@@ -5,7 +5,7 @@ import math
 class Route(object):
     
     number_of_all_routes = 0
-    depot = Point(-1, (20,20))
+    depot = Point(-1, (20, 20))
     
     def __init__(self, points=None):
         Route.number_of_all_routes += 1
