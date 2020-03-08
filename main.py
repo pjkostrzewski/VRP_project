@@ -16,7 +16,7 @@ population = None
 running = True
 best = None
 same = 0
-while running and same < 500:
+while running and same < 1000:
     plotter.ion()
     if population is None:
         population = FirstPopulation(points)
@@ -26,21 +26,23 @@ while running and same < 500:
     population.crossover_population()
     population.mutate_population()
     fittest_route = population.get_fittest_route()
-    print(Population.number_of_populations, fittest_route.distance)
+    
     if best is None:
         best = fittest_route
-    elif fittest_route.distance < best.distance:
+    elif fittest_route.calculate_distance() < best.calculate_distance():
         best = fittest_route
         plotter.clear()
         plotter.draw(points, best.get_full_route())
         same = 0
     else:
         same += 1
-
-    print(best.distance)
+    print(Population.number_of_populations, best.calculate_distance())
     plotter.show()
     plotter.pause()
-print(best.distance)
+    
+plotter.draw(points, best.get_full_route())
+print(best.get_full_route())
+print(best.calculate_distance())
 plotter.show()
     
 

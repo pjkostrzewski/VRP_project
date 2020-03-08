@@ -4,7 +4,7 @@ from Route import Route
 
 class Population(object):
     
-    population_size = 100
+    population_size = 40
     number_of_populations = 0
     
     def __init__(self):  
@@ -15,25 +15,25 @@ class Population(object):
         return self.population
     
     def get_fittest_route(self):
-        return sorted(self.population, key=lambda x: x.distance)[0]
+        return sorted(self.population, key=lambda x: x.calculate_distance())[0]
          
     def clear_population(self):
         self.population.clear()
     
     def sort(self):
-        self.population.sort(key=lambda x: x.distance)
+        self.population.sort(key=lambda x: x.calculate_distance())
         
     def get_random_route(self):
         self.sort()
-        sum_of_distances = sum([x.distance for x in self.population])
+        sum_of_distances = sum([x.calculate_distance() for x in self.population])
         return random.choices(self.population, [x.fitness/sum_of_distances for x in self.population])[0]
     
-    def get_route_via_tournament(self, tournament_size=10):
+    def get_route_via_tournament(self, tournament_size=4):
         tournament = []
         for _ in range(tournament_size):
             route = random.choice(self.population)
             tournament.append(route)
-        return sorted(tournament, key=lambda x: x.distance)[0]
+        return sorted(tournament, key=lambda x: x.calculate_distance())[0]
         
     def crossover_population(self):
         crossover_result = []
