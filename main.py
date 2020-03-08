@@ -4,7 +4,7 @@ from Population import Population, FirstPopulation, ChildsPopulation
 
 
 salesmen = 2
-benchmark = Benchmark(  vrp_path="eil51/moje8_m2.tsp", 
+benchmark = Benchmark(  vrp_path="eil51/eil51.tsp", 
                         solution_path="eil51/moje8_m{}-tours.txt".format(salesmen))
 
 plotter = MatplotlibPlotter()

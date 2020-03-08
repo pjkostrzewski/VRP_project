@@ -1,6 +1,6 @@
-y_max = 100
-x_max = 100
-depot = 1  # seed
+from Coord import Point
+
+
 population_size = 100
-mutation = 0.02
-tournament = 10
+depot = Point(-1, (37, 52))  # 37, 52
+tournament_size = 6

@@ -12,7 +12,7 @@ class GeneticAlgorithm(object):
     def crossover(cls, route_1, route_2):
         if random.random() <= cls.crossover_rate:
             route_len = route_1.get_length()
-            r = random.randint(3, route_len//2)
+            r = random.randint(3, route_len//4)
             pivot_1 = random.randint(0, route_1.get_length())
             if pivot_1+r > route_len:
                 start = pivot_1 + r - route_len

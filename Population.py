@@ -1,10 +1,12 @@
 import random
 from GA import GeneticAlgorithm
 from Route import Route
+import helpers
+
 
 class Population(object):
     
-    population_size = 40
+    population_size = helpers.population_size
     number_of_populations = 0
     
     def __init__(self):  
@@ -28,7 +30,7 @@ class Population(object):
         sum_of_distances = sum([x.calculate_distance() for x in self.population])
         return random.choices(self.population, [x.fitness/sum_of_distances for x in self.population])[0]
     
-    def get_route_via_tournament(self, tournament_size=4):
+    def get_route_via_tournament(self, tournament_size=helpers.tournament_size):
         tournament = []
         for _ in range(tournament_size):
             route = random.choice(self.population)

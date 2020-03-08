@@ -1,11 +1,12 @@
 from Coord import Point
+import helpers
 import math
 
 
 class Route(object):
     
     number_of_all_routes = 0
-    depot = Point(-1, (10, 60))
+    depot = helpers.depot
     
     def __init__(self, points=None):
         Route.number_of_all_routes += 1
