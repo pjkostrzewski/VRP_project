@@ -1,6 +1,7 @@
 from BenchmarksUtils import Benchmark
 from Plotter import MatplotlibPlotter
 from Population import Population, FirstPopulation, ChildsPopulation
+from GA import GeneticAlgorithm
 
 
 salesmen = 2
@@ -26,7 +27,6 @@ while running and same < 1000:
     population.crossover_population()
     population.mutate_population()
     fittest_route = population.get_fittest_route()
-    
     if best is None:
         best = fittest_route
     elif fittest_route.calculate_distance() < best.calculate_distance():
@@ -34,9 +34,12 @@ while running and same < 1000:
         plotter.clear()
         plotter.draw(points, best.get_full_route())
         same = 0
+        print(Population.number_of_populations, best.calculate_distance())  
     else:
         same += 1
-    print(Population.number_of_populations, best.calculate_distance())
+        if same > 20:
+            GeneticAlgorithm.remove_instersection(best)
+            
     plotter.show()
     plotter.pause()
     
