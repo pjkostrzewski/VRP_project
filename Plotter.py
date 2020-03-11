@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from RoutesContainer import RoutesContainer
 
 
 class MatplotlibPlotter(object):
@@ -20,9 +21,13 @@ class MatplotlibPlotter(object):
         y_route = [point.y for point in route]
         plt.plot(x_route, y_route)
     
-    def draw(self, points, routes):
+    def draw(self, points, routes_container):
         self.draw_points(points)
-        self.draw_routes(points, routes)
+        if isinstance(routes_container, RoutesContainer):
+            for route in routes_container.routes:
+                self.draw_routes(points, route.get_full_route())
+        else:
+            self.draw_routes(points, routes_container)
         
     @staticmethod
     def show():

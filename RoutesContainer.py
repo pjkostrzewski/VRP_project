@@ -12,4 +12,9 @@ class RoutesContainer(object):
         else:
             self.routes = []
     
-        
+    def calculate_distance(self):
+        distance = 0
+        for route in self.routes:
+            distance += route.calculate_distance()
+        return distance
+    
