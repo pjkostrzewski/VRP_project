@@ -25,16 +25,11 @@ class Population(object):
     def sort(self):
         self.population.sort(key=lambda x: x.calculate_distance())
         
-    def get_random_route(self):
-        self.sort()
-        sum_of_distances = sum([x.calculate_distance() for x in self.population])
-        return random.choices(self.population, [x.fitness/sum_of_distances for x in self.population])[0]
-    
     def get_route_via_tournament(self, tournament_size=helpers.tournament_size):
         tournament = []
         for _ in range(tournament_size):
-            route = random.choice(self.population)
-            tournament.append(route)
+            route_container = random.choice(self.population)
+            tournament.append(route_container)
         return sorted(tournament, key=lambda x: x.calculate_distance())[0]
         
     def crossover_population(self):
