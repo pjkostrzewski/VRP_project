@@ -13,21 +13,22 @@ class MatplotlibPlotter(object):
         x_values = [point.x for point in points]
         y_values = [point.y for point in points]
         depot = x_values[0], y_values[0]
-        plt.scatter(*depot, c=self.depot_color, s=50)
+        self.draw_depot(depot)
         plt.scatter(x_values[1:], y_values[1:])   
     
-    def draw_routes(self, points, route):
+    def draw_depot(self, depot:tuple):
+        plt.scatter(*depot, c=self.depot_color, s=50)
+    
+    def draw_route(self, route):
         x_route = [point.x for point in route]
         y_route = [point.y for point in route]
         plt.plot(x_route, y_route)
     
-    def draw(self, points, routes_container):
-        self.draw_points(points)
-        if isinstance(routes_container, RoutesContainer):
-            for route in routes_container.routes:
-                self.draw_routes(points, route.get_full_route())
-        else:
-            self.draw_routes(points, routes_container)
+    def draw(self, routes_container):
+        assert isinstance(routes_container, RoutesContainer)
+        self.draw_points(routes_container.points)         
+        for route in routes_container.routes:
+            self.draw_route(route.get_full_route())
         
     @staticmethod
     def show():

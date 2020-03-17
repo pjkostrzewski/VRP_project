@@ -1,11 +1,14 @@
 from random import sample
 from Route import Route
 import helpers
+from copy import deepcopy
 
 
 class RoutesContainer(object):
     
     salesmen = helpers.salesmen
+    depot =  None
+    points = None
     
     def __init__(self, routes=None):
         if routes:
@@ -19,23 +22,34 @@ class RoutesContainer(object):
             distance += route.calculate_distance()
         return distance
     
+    @classmethod
+    def set_depot(cls, point):
+        cls.depot = point
+    
+    @classmethod
+    def set_points(cls, points):
+        cls.points = points
     
 def generate_random_routes_container(points):
+    RoutesContainer.set_points(points)
+    nodes = deepcopy(points)
+    depot = nodes.pop(0)  # create depot & remove this point from nodes list
+    RoutesContainer.set_depot(depot)  # set depot point as class variable
     number_of_nodes = int(round(len(points)/helpers.salesmen))
     results = []
     
     def clear_sample():
         for point in route:
-            points.remove(point)
+            nodes.remove(point)
             
     while True:
         try:
-            route = sample(points, number_of_nodes)
+            route = sample(nodes, number_of_nodes)
             clear_sample()
-            if len(points) == 0:
+            if len(nodes) == 0:
                 break
         except ValueError:
-            route = points
+            route = nodes
             break
         finally:
             results.append(Route(route))

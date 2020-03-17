@@ -55,7 +55,7 @@ class FirstPopulation(Population):
     def __init__(self, points):
         super().__init__()
         self.depot = points[0]
-        self.points = points[1:]
+        self.points = points
         self.create_random_population()
         
     def create_random_population(self):
