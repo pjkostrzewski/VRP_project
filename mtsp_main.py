@@ -1,6 +1,6 @@
 from BenchmarksUtils import Benchmark
 from Plotter import MatplotlibPlotter
-from Population import Population, FirstPopulation, ChildsPopulation
+from Population import Population, create_random_population
 from GA import GeneticAlgorithm
 from Route import Route
 from RoutesContainer import generate_random_routes_container
@@ -13,9 +13,10 @@ plotter = MatplotlibPlotter()
 points = benchmark.get_points()
 Population.configure(points)
 # routes_container = generate_random_routes_container(points)
-first = FirstPopulation()
-print(first.points)
-best = first.get_fittest_route()
-# print(first.get_population())
+first = create_random_population()
+print(first)
+best = first.get_fittest_container()
+print(best)
+# print(first.get())
 plotter.draw(best)
 plotter.show()

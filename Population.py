@@ -10,22 +10,20 @@ class Population(object):
     
     population_size = helpers.population_size
     number_of_populations = 0
-    depot = None
-    points = None
         
-    def __init__(self):  
-        self.population = list()
+    def __init__(self, previous):  
+        self.population = previous
         Population.number_of_populations += 1
     
     @classmethod
     def configure(cls, points):
-        Population.depot = points[0]
-        Population.points = points[1:]
+        RoutesContainer.depot = points[0]
+        RoutesContainer.points = points[1:]
     
-    def get_population(self):
+    def get(self):
         return self.population
     
-    def get_fittest_route(self):
+    def get_fittest_container(self):
         return sorted(self.population, key=lambda x: x.calculate_distance())[0]
          
     def clear_population(self):
@@ -59,21 +57,10 @@ class Population(object):
             GeneticAlgorithm.mutation(route) 
 
 
-class FirstPopulation(Population):
-    
-    def __init__(self):
-        super().__init__()
-        self.create_random_population()
-        
-    def create_random_population(self):
-        self.clear_population()
-        for _ in range(self.population_size):
-            random_container = generate_random_routes_container(self.points)
-            self.population.append(random_container)
+def create_random_population():
+    permutations = []
+    for _ in range(Population.population_size):
+        random_container = generate_random_routes_container(RoutesContainer.points)
+        permutations.append(random_container)
+    return Population(permutations)
             
-            
-class ChildsPopulation(Population):
-    
-        def __init__(self, previous_population):
-            super().__init__()
-            self.population = previous_population

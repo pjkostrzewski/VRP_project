@@ -36,8 +36,6 @@ class RoutesContainer(object):
 def generate_random_routes_container(points):
     RoutesContainer.set_points(points)
     nodes = deepcopy(points)
-    depot = nodes.pop(0)  # create depot & remove this point from nodes list
-    RoutesContainer.set_depot(depot)  # set depot point as class variable
     number_of_nodes = int(round(len(points)/helpers.salesmen))
     results = []
     

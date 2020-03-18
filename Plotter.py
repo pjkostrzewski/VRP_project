@@ -4,19 +4,17 @@ from RoutesContainer import RoutesContainer
 
 class MatplotlibPlotter(object):
     depot_color = '#ff0000'
-    
-    
+     
     def __init__(self):
         self.fig = plt.figure()
     
     def draw_points(self, points):
         x_values = [point.x for point in points]
         y_values = [point.y for point in points]
-        depot = x_values[0], y_values[0]
-        self.draw_depot(depot)
-        plt.scatter(x_values[1:], y_values[1:])   
+        plt.scatter(x_values, y_values)   
     
-    def draw_depot(self, depot:tuple):
+    def draw_depot(self, depot):
+        depot = (depot.x, depot.y)
         plt.scatter(*depot, c=self.depot_color, s=50)
     
     def draw_route(self, route):
@@ -26,6 +24,7 @@ class MatplotlibPlotter(object):
     
     def draw(self, routes_container):
         assert isinstance(routes_container, RoutesContainer)
+        self.draw_depot(RoutesContainer.depot)
         self.draw_points(routes_container.points)         
         for route in routes_container.routes:
             self.draw_route(route.get_full_route())
