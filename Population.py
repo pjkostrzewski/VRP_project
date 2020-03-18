@@ -11,12 +11,25 @@ class Population(object):
     population_size = helpers.population_size
     number_of_populations = 0
         
-    def __init__(self, previous):  
-        self.population = previous
+    def __init__(self, previous):
+        
+        if isinstance(previous, Population):    # population
+            self.population = previous.get()
+        else:                                   # list of routes containers
+            self.population = previous
+            
         Population.number_of_populations += 1
+        self.number = Population.number_of_populations
+        
+    def __len__(self):
+        return len(self.population)
+    
+    def __repr__(self):
+        return "Population {}".format(self.number)
     
     @classmethod
-    def configure(cls, points):
+    def configure(cls, benchmark):
+        points = benchmark.get_points()
         RoutesContainer.depot = points[0]
         RoutesContainer.points = points[1:]
     

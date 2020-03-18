@@ -9,14 +9,13 @@ from RoutesContainer import generate_random_routes_container
 benchmark = Benchmark(  vrp_path="eil51/moje8_m2.tsp", 
                         solution_path="eil51/moje8_m2-tours.txt")
 
+Population.configure(benchmark)
 plotter = MatplotlibPlotter()
-points = benchmark.get_points()
-Population.configure(points)
-# routes_container = generate_random_routes_container(points)
+
 first = create_random_population()
-print(first)
-best = first.get_fittest_container()
-print(best)
-# print(first.get())
+second = Population(first)
+best0 = first.get_fittest_container()
+best = second.get_fittest_container()
 plotter.draw(best)
+
 plotter.show()
