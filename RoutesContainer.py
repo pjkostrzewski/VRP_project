@@ -22,6 +22,9 @@ class RoutesContainer(object):
             distance += route.calculate_distance()
         return distance
     
+    def uniques_only(self):
+        raise NotImplementedError
+    
     @classmethod
     def set_depot(cls, point):
         cls.depot = point

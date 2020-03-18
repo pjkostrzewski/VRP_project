@@ -1,6 +1,8 @@
 import random
 from GA import GeneticAlgorithm
 from Route import Route
+from RoutesContainer import (RoutesContainer, 
+                             generate_random_routes_container)
 import helpers
 
 
@@ -8,11 +10,18 @@ class Population(object):
     
     population_size = helpers.population_size
     number_of_populations = 0
-    
+    depot = None
+    points = None
+        
     def __init__(self):  
         self.population = list()
         Population.number_of_populations += 1
-        
+    
+    @classmethod
+    def configure(cls, points):
+        Population.depot = points[0]
+        Population.points = points[1:]
+    
     def get_population(self):
         return self.population
     
@@ -52,17 +61,15 @@ class Population(object):
 
 class FirstPopulation(Population):
     
-    def __init__(self, points):
+    def __init__(self):
         super().__init__()
-        self.depot = points[0]
-        self.points = points
         self.create_random_population()
         
     def create_random_population(self):
         self.clear_population()
         for _ in range(self.population_size):
-            permutation = random.sample(self.points, len(self.points))
-            self.population.append(Route(permutation))
+            random_container = generate_random_routes_container(self.points)
+            self.population.append(random_container)
             
             
 class ChildsPopulation(Population):
