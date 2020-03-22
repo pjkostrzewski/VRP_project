@@ -15,7 +15,7 @@ class Population(object):
         
         if isinstance(previous, Population):    # population
             self.population = previous.get()
-        else:                                   # list of routes containers
+        else:       
             self.population = previous
             
         Population.number_of_populations += 1
@@ -61,7 +61,7 @@ class Population(object):
             crossed_1, crossed_2 = GeneticAlgorithm.crossover(route_1, route_2)
             if crossed_1.uniques_only():
                 crossover_result.append(crossed_1)
-            if crossed_1.uniques_only():
+            if crossed_2.uniques_only():
                 crossover_result.append(crossed_2)
         self.population = crossover_result[:self.population_size]
         

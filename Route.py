@@ -14,7 +14,7 @@ class Route(object):
         self.id_number = self.number_of_all_routes
         self.route = points if points else []
         self.distance = self.calculate_distance()
-        self.fitness = 1/self.distance
+        # self.fitness = 1/self.distance
         
     def __repr__(self):
         return "Route {}".format(self.id_number)
@@ -30,6 +30,9 @@ class Route(object):
     
     def __index__(self):
         return bool(self.route)
+    
+    def __len__(self):
+        return len(self.route)
     
     def get_full_route(self):
         return [self.depot] + self.route + [self.depot]
