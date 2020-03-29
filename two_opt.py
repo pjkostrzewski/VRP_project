@@ -49,6 +49,19 @@ def two_opt_algorithm(route: Route, stop_value=1000):
                 if new_distance < best_distance:
                     route = new_route
                     best_distance = new_distance
+                    no_changes = 0
                 else:
                     no_changes += 1
     return route
+
+def two_opt_for_route_container(route_container):
+    new_routes = []
+    for r in route_container.get_subroutes():
+        if len(r.route) > 2:
+            res = two_opt_algorithm(r)
+        else: 
+            res = r
+        for point in res:
+            new_routes.append(point)
+
+    route_container.routes.route = new_routes 

@@ -4,7 +4,7 @@ from Population import Population, create_random_population
 from GA import GeneticAlgorithm
 from Route import Route
 from RoutesContainer import RoutesContainer, generate_random_routes_container
-from two_opt import two_opt_algorithm, two_opt_swap
+from two_opt import two_opt_for_route_container
 
 benchmark = Benchmark(  vrp_path="eil51/moje8_m2.tsp", 
                         solution_path="eil51/moje8_m2-tours.txt")
@@ -12,20 +12,11 @@ benchmark = Benchmark(  vrp_path="eil51/moje8_m2.tsp",
 Population.configure(benchmark)
 plotter = MatplotlibPlotter()
 rc = generate_random_routes_container(benchmark.get_points()[1:])
-
-print("1", rc.routes.route)
-print(rc.details)
-
-new_routes = []
-for x in rc.get_subroutes():
-    if len(x.route) > 3:
-        res = two_opt_algorithm(x)
-    else: 
-        res = x
-    new_routes.append(res)
-# print("2", new_routes.)  
-# plotter.draw(rc)
-# plotter.show()
+plotter.draw(rc)
+plotter.show()
+two_opt_for_route_container(rc)
+plotter.draw(rc)
+plotter.show()
 
 # running = True
 # same = 0
