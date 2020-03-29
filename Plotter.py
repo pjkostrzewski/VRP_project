@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from RoutesContainer import RoutesContainer
+from Route import Route
 
 
 class MatplotlibPlotter(object):
@@ -24,9 +25,16 @@ class MatplotlibPlotter(object):
     def draw(self, routes_container):
         assert isinstance(routes_container, RoutesContainer)
         self.draw_depot(RoutesContainer.depot)
-        self.draw_points(RoutesContainer.points)         
-        for route in routes_container.routes:
-            self.draw_route(route.get_full_route())
+        self.draw_points(RoutesContainer.points)  
+        previous = 0
+        # if len(routes_container.details) == 1:
+        #     detail = 
+        #     self.draw_route(Route(routes_container.routes[:detail]).get_full_route())
+        #     self.draw_route(Route(routes_container.routes[detail:]).get_full_route())
+        for detail in routes_container.details:
+            self.draw_route(Route(routes_container.routes[previous:previous+detail]).get_full_route())
+            previous += detail
+
         
     @staticmethod
     def show():

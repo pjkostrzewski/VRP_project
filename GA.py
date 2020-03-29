@@ -39,29 +39,4 @@ class GeneticAlgorithm(object):
                 b = random.choice(range(len(route.details)))
                 route.details[a] += 1
                 route.details[b] -= 1
-
-    @classmethod
-    def remove_instersection(cls, route):
-        passed = 0
-        a = random.randint(1, route.get_length()-3)
-        c = random.randint(1, route.get_length()-3)
-        b = a+1
-        d = b+1
-        abc = helpers.det_matrix(route[a], route[b], route[c])
-        abd = helpers.det_matrix(route[a], route[b], route[d])
-        cda = helpers.det_matrix(route[c], route[d], route[a])
-        cdb = helpers.det_matrix(route[c], route[d], route[b])
-        if (abc<0 and abd>0) or (abc>0 and abd<0):
-            passed += 1
-        if (cdb<0 and cda>0) or (cdb>0 and cda<0):
-            passed += 1
-        if passed == 2:
-            before = route.calculate_distance()
-            route[c], route[a] = route[a], route[c]
-            after = route.calculate_distance()
-            if before < after: 
-                route[d], route[c] = route[c], route[d]
-                after = route.calculate_distance()
-                if before < after:
-                    route[d], route[a] = route[a], route[d]
             

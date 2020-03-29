@@ -34,6 +34,9 @@ class Route(object):
     def __len__(self):
         return len(self.route)
     
+    def __delitem__(self, item):
+        del self.route[item]
+    
     def get_full_route(self):
         return [self.depot] + self.route + [self.depot]
     

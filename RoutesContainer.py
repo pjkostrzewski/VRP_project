@@ -38,13 +38,24 @@ class RoutesContainer(object):
     @classmethod
     def set_points(cls, points):
         cls.points = points
-    
-def generate_random_routes_container(points):  # Done
+
+    def get_subroutes(self):
+        subroutes = []
+        copy_routes = deepcopy(self.routes)
+        print(type(copy_routes))
+        
+        for nodes in self.details:
+            to_add = copy_routes[:nodes]
+            del copy_routes[:nodes]
+            subroutes.append(Route(to_add))
+        return subroutes
+        
+def generate_random_routes_container(points):
     sam = Route(sample(points, len(points)))
     details = generate_random_details(points)
     return RoutesContainer(sam, details)
 
-def generate_random_details(points):  # Done
+def generate_random_details(points):
     result = []
     while True:
         result.clear()
@@ -55,3 +66,4 @@ def generate_random_details(points):  # Done
         if 1 not in result:
             break
     return result
+
