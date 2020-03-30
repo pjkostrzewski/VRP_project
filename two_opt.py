@@ -63,5 +63,4 @@ def two_opt_for_route_container(route_container):
             res = r
         for point in res:
             new_routes.append(point)
-
     route_container.routes.route = new_routes 

@@ -18,6 +18,7 @@ class MatplotlibPlotter(object):
         plt.scatter(depot.x, depot.y, c=self.depot_color, s=50)
     
     def draw_route(self, route):
+        print('draw route', route)
         x_route = [point.x for point in route]
         y_route = [point.y for point in route]
         plt.plot(x_route, y_route)
@@ -32,6 +33,7 @@ class MatplotlibPlotter(object):
         #     self.draw_route(Route(routes_container.routes[:detail]).get_full_route())
         #     self.draw_route(Route(routes_container.routes[detail:]).get_full_route())
         for detail in routes_container.details:
+            print(routes_container.routes[previous:previous+detail])
             self.draw_route(Route(routes_container.routes[previous:previous+detail]).get_full_route())
             previous += detail
 
@@ -45,8 +47,8 @@ class MatplotlibPlotter(object):
         plt.ion()
     
     @staticmethod
-    def pause():
-        plt.pause(0.01)
+    def pause(timeout=0.01):
+        plt.pause(timeout)
         
     def clear(self):
         self.fig.clear()

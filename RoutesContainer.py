@@ -42,8 +42,6 @@ class RoutesContainer(object):
     def get_subroutes(self):
         subroutes = []
         copy_routes = deepcopy(self.routes)
-        print(type(copy_routes))
-        
         for nodes in self.details:
             to_add = copy_routes[:nodes]
             del copy_routes[:nodes]

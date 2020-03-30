@@ -37,6 +37,6 @@ class GeneticAlgorithm(object):
                 route.routes[l], route.routes[r] = r_value, l_value
                 a = random.choice(range(len(route.details)))
                 b = random.choice(range(len(route.details)))
-                route.details[a] += 1
-                route.details[b] -= 1
+                # route.details[a] += 1
+                # route.details[b] -= 1
             
