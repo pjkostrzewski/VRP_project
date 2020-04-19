@@ -16,6 +16,15 @@ class Point(object):
     def __repr__(self):
         return "POINT({},{})".format(self._x, self._y)
     
+    def __hash__(self):
+        return self.x*10 + self.y
+    
+    def __eq__(self, other):
+        if self.x == other.x and self.y == other.y:
+            return True
+        else:
+            return False
+        
     @property
     def id_number(self):
         return self._id_number 

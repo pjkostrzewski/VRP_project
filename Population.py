@@ -74,7 +74,7 @@ def create_random_population():
     permutations = []
     for _ in range(Population.population_size):
         random_container = generate_random_routes_container(RoutesContainer.points)
-        two_opt_for_route_container(random_container)
+        # two_opt_for_route_container(random_container)
         permutations.append(random_container)
     return Population(permutations)
             

@@ -16,10 +16,10 @@ running = True
 same = 0
 population = None
 best = None
-while running and same < 300:
+while running and same < 1000:
     same += 1
     print(Population.number_of_populations)
-    # plotter.ion()
+    plotter.ion()
     if population is None:
         population = create_random_population()
     else:
@@ -28,30 +28,41 @@ while running and same < 300:
     population.crossover_population()
     population.mutate_population()
     fittest = population.get_fittest_container()
-    # two_opt_for_route_container(fittest)
+    if same%10:
+        two_opt_for_route_container(fittest)  # to ucina !!!!
     if best is None:
         best = fittest
+        plotter.draw(best)
     elif fittest.calculate_distance() < best.calculate_distance():
         print("================================================")
         best = fittest
-        # plotter.clear()
-        # plotter.draw(best)
-        # same = 0
+        plotter.clear()
+        print(best)
+        plotter.draw(best)
+        same = 0
         print(Population.number_of_populations, best.calculate_distance())  
-    # plotter.show()
-    # plotter.pause()
+    plotter.show()
+    plotter.pause()
 
-plotter.ion()
-plotter.clear()
-plotter.draw(best)
-plotter.show()
-plotter.pause(5)
-print(best.routes.route)
-print(best.calculate_distance())
-two_opt_for_route_container(best)
-plotter.clear()
-plotter.draw(best)
-plotter.show()
-print(best.routes.route)
-print(best.calculate_distance())
-# input("whaaat")
+
+
+
+
+
+
+
+
+# plotter.ion()
+# plotter.clear()
+# plotter.draw(best)
+# plotter.show()
+# plotter.pause(5)
+# print(best.routes.route)
+# print(best.calculate_distance())
+# two_opt_for_route_container(best)
+# plotter.clear()
+# plotter.draw(best)
+# plotter.show()
+# print(best.routes.route)
+# print(best.calculate_distance())
+# # input("whaaat")

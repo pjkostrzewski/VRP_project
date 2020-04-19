@@ -30,7 +30,7 @@ from Route import Route
 
 def two_opt_swap(route: Route, i, k):
     route = route.route
-    part_1 = deepcopy(route[0:i])
+    part_1 = deepcopy(route[:i])
     part_2 = deepcopy(route[i:k])
     part_2.reverse()
     part_3 = deepcopy(route[k:])

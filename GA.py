@@ -8,8 +8,8 @@ from copy import deepcopy
 
 class GeneticAlgorithm(object):
 
-    mutation_rate = 0.3
-    crossover_rate = 1
+    mutation_rate = 0.2
+    crossover_rate = 0.6
 
     @classmethod
     def crossover(cls, route_1, route_2):
