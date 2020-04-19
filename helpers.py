@@ -2,7 +2,7 @@ from Coord import Point
 
 
 population_size = 100
-depot = Point(-1, (20, 20))  # 37, 52
+depot = Point(-1, (37, 52))  # 37, 52
 tournament_size = 20
 salesmen = 2
 

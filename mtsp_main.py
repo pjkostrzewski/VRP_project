@@ -28,7 +28,7 @@ while running and same < 1000:
     population.crossover_population()
     population.mutate_population()
     fittest = population.get_fittest_container()
-    if same%10:
+    if not same % 50:
         two_opt_for_route_container(fittest)  # to ucina !!!!
     if best is None:
         best = fittest

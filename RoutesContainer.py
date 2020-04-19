@@ -2,6 +2,7 @@ from random import sample
 from Route import Route
 import helpers
 from copy import deepcopy
+from random import randint
 
 
 class RoutesContainer(object):
@@ -54,14 +55,19 @@ def generate_random_routes_container(points):
     return RoutesContainer(sam, details)
 
 def generate_random_details(points):
-    result = []
-    while True:
-        result.clear()
-        parts = helpers.salesmen
-        generated = [0] + sorted(sample(range(2,len(points)-2), parts-1)) + [len(points)]
-        for idx in range(1, len(generated)):
-            result.append(generated[idx]-generated[idx-1])
-        if 1 not in result:
-            break
+    # while True:
+    #     result.clear()
+    #     parts = helpers.salesmen
+    #     generated = [0] + sorted(sample(range(2,len(points)-2), parts-1)) + [len(points)]
+    #     for idx in range(1, len(generated)):
+    #         result.append(generated[idx]-generated[idx-1])
+    #     if 1 not in result:
+    #         break
+    parts = helpers.salesmen
+    med = len(points) // parts
+    result = [med]*parts
+    diff = len(points) - med
+    for _ in range(diff):
+        result[randint(0, len(result)-1)] +=1
     return result
 
