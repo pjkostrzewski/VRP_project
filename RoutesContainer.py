@@ -66,8 +66,7 @@ def generate_random_details(points):
     parts = helpers.salesmen
     med = len(points) // parts
     result = [med]*parts
-    diff = len(points) - med
+    diff = len(points) - sum(result)
     for _ in range(diff):
         result[randint(0, len(result)-1)] +=1
     return result
-

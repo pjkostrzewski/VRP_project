@@ -16,9 +16,9 @@ running = True
 same = 0
 population = None
 best = None
-while running and same < 1000:
+while running and same < 300:
     same += 1
-    print(Population.number_of_populations)
+    print(Population.number_of_populations, same)
     plotter.ion()
     if population is None:
         population = create_random_population()
@@ -28,8 +28,8 @@ while running and same < 1000:
     population.crossover_population()
     population.mutate_population()
     fittest = population.get_fittest_container()
-    if not same % 50:
-        two_opt_for_route_container(fittest)  # to ucina !!!!
+    if not same%50:
+        two_opt_for_route_container(fittest)
     if best is None:
         best = fittest
         plotter.draw(best)
@@ -43,7 +43,7 @@ while running and same < 1000:
         print(Population.number_of_populations, best.calculate_distance())  
     plotter.show()
     plotter.pause()
-
+print("Best score:", best.calculate_distance())
 
 
 
