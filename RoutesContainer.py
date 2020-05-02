@@ -50,6 +50,10 @@ class RoutesContainer(object):
         return subroutes
         
 def generate_random_routes_container(points):
+    # from klasteryzacja import klasteryzacja
+    # _, details = klasteryzacja()
+    # sam = Route(points)
+    # sam = Route(points)
     sam = Route(sample(points, len(points)))
     details = generate_random_details(points)
     return RoutesContainer(sam, details)

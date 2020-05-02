@@ -5,6 +5,8 @@ from GA import GeneticAlgorithm
 from Route import Route
 from RoutesContainer import RoutesContainer, generate_random_routes_container
 from two_opt import two_opt_for_route_container
+from Timer import Timer
+
 
 benchmark = Benchmark(  vrp_path="eil51/eil51.tsp", 
                         solution_path="eil51/moje8_m2-tours.txt")
@@ -16,7 +18,9 @@ running = True
 same = 0
 population = None
 best = None
-while running and same < 300:
+timer = Timer()
+timer.start_measure()
+while running and same < 101:
     same += 1
     print(Population.number_of_populations, same)
     plotter.ion()
@@ -28,7 +32,7 @@ while running and same < 300:
     population.crossover_population()
     population.mutate_population()
     fittest = population.get_fittest_container()
-    if not same%50:
+    if not same%20:
         two_opt_for_route_container(fittest)
     if best is None:
         best = fittest
@@ -43,8 +47,9 @@ while running and same < 300:
         print(Population.number_of_populations, best.calculate_distance())  
     plotter.show()
     plotter.pause()
+timer.stop_measure()
 print("Best score:", best.calculate_distance())
-
+print("time: ", timer.get_diff())
 
 
 

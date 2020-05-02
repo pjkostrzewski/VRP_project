@@ -17,7 +17,7 @@ class Point(object):
         return "POINT({},{})".format(self._x, self._y)
     
     def __hash__(self):
-        return self.x*10 + self.y
+        return int(self.x*10 + self.y)
     
     def __eq__(self, other):
         if self.x == other.x and self.y == other.y:
